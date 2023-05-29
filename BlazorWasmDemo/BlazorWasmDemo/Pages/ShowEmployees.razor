@@ -1,0 +1,21 @@
+﻿@page "/employees"
+
+<h2>List of Employees</h2>
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Employees) {
+            <tr>
+                <td>@employee.ID</td>
+                <td>@employee.FirstName</td>
+                <td>@employee.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>
