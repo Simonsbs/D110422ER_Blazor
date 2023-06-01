@@ -1,6 +1,10 @@
 ﻿@page "/employees"
 <h3>List of our employees</h3>
 
-@foreach(var employee in Employees){
-
-}
+<div class="row">
+    @foreach (var employee in Employees) {
+        <div class="col-12">
+            <EmployeeCard InputEmployee="employee"></EmployeeCard>
+        </div>
+    }
+</div>
