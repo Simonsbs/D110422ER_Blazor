@@ -1,0 +1,35 @@
+﻿@if(_employee != null){
+    <div class="modal fade show d-block" id="employeeModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Employee Quick View</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="col row">
+                        <div class="col-12 col-sm-8">
+                            <div class="row">
+                                <label class="col-form-label">Employee ID:</label>
+                                <div class="col-sm-7">
+                                    <label class="form-control-plaintext">@_employee.ID</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-form-label">Employee First Name:</label>
+                                <div class="col-sm-7">
+                                    <label class="form-control-plaintext">@_employee.FirstName</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-form-label">Employee Last Name:</label>
+                                <div class="col-sm-7">
+                                    <label class="form-control-plaintext">@_employee.LastName</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
