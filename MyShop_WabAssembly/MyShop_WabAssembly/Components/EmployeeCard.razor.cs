@@ -10,6 +10,9 @@ namespace MyShop.UI.WebAssembly.Components {
         [Parameter]
         public EventCallback<Employee> PopupClicked { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected override void OnInitialized() {
             base.OnInitialized();
         }
@@ -32,6 +35,10 @@ namespace MyShop.UI.WebAssembly.Components {
 
         private async void CallParent() {
             await PopupClicked.InvokeAsync(InputEmployee);
+        }
+
+        private void NavigateToEmployee() {
+            NavigationManager.NavigateTo("/employee/" + InputEmployee.ID);
         }
     }
 

@@ -11,6 +11,9 @@
             @*<button class="btn btn-primary" @onclick="@(e => CalledPopup(e, InputEmployee.ID))">Popup</button>*@
             @*<button class="btn btn-primary" @onclick="@(async () => await PopupClicked.InvokeAsync(InputEmployee))">Popup</button>*@
             <button class="btn btn-primary" @onclick="@CallParent">Popup</button>
+            
+            <a href="/employee/@InputEmployee.ID" class="btn btn-primary">View</a>
+            <button class="btn btn-primary" @onclick="@NavigateToEmployee">View 2</button>
         </div>
     </div>
 </div>

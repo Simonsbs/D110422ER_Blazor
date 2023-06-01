@@ -5,3 +5,10 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@*<EmployeeCount></EmployeeCount>
+<MailCount></MailCount>*@
+
+@foreach(var widget in ListOfWidgets){
+    <DynamicComponent Type="widget"></DynamicComponent>
+}
