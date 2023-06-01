@@ -5,7 +5,10 @@ using MyShop.Shared;
 namespace MyShop.UI.WebAssembly.Components {
     public partial class EmployeeCard {
         [Parameter]
-        public Employee InputEmployee { get; set; }
+        public Employee InputEmployee { get; set; } = null;
+
+        [Parameter]
+        public EventCallback<Employee> PopupClicked { get; set; }
 
         protected override void OnInitialized() {
             base.OnInitialized();
@@ -26,6 +29,10 @@ namespace MyShop.UI.WebAssembly.Components {
         /*public void CalledFromKeyboard(KeyboardEventArgs e) {
 
         }*/
+
+        private async void CallParent() {
+            await PopupClicked.InvokeAsync(InputEmployee);
+        }
     }
 
 }

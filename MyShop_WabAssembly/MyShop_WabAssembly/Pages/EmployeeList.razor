@@ -1,11 +1,11 @@
 ﻿@page "/employees"
 <h3>List of our employees</h3>
 
-<EmployeePopup></EmployeePopup>
+<EmployeePopup Employee="_selectedEmployee"></EmployeePopup>
 <div class="row">
     @foreach (var employee in Employees) {
         <div class="col-12">
-            <EmployeeCard InputEmployee="employee"></EmployeeCard>
+            <EmployeeCard InputEmployee="employee" PopupClicked="EmployeePopupRequested"></EmployeeCard>
         </div>
     }
 </div>

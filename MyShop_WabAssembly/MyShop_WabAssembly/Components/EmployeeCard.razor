@@ -8,7 +8,9 @@
                 <img src="@InputEmployee.Image" class="rounded-circle img-fluid" />
             </div>
             @*<button class="btn btn-primary" @onclick="CalledPopup">Popup</button>*@
-            <button class="btn btn-primary" @onclick="@(e => CalledPopup(e, InputEmployee.ID))">Popup</button>
+            @*<button class="btn btn-primary" @onclick="@(e => CalledPopup(e, InputEmployee.ID))">Popup</button>*@
+            @*<button class="btn btn-primary" @onclick="@(async () => await PopupClicked.InvokeAsync(InputEmployee))">Popup</button>*@
+            <button class="btn btn-primary" @onclick="@CallParent">Popup</button>
         </div>
     </div>
 </div>
