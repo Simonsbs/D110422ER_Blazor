@@ -1,6 +1,8 @@
 ﻿@page "/employees"
 <h3>List of our employees</h3>
 
+<ShortMail></ShortMail>
+
 <EmployeePopup Employee="_selectedEmployee"></EmployeePopup>
 <div class="row">
     @foreach (var employee in Employees) {

@@ -1,0 +1,23 @@
+﻿@page "/employee/edit/"
+<h3>Employee Edit</h3>
+
+<div>
+    <h4>One Way - No binding</h4>
+    First Name: <label>@Employee.FirstName</label><br />
+    Last Name: <label>@Employee.LastName</label>
+</div>
+<div>
+    <h4>One way - form controls</h4>
+    First Name: <input value="@Employee.FirstName" /><br />
+    Last Name: <input value="@Employee.LastName" />
+</div>
+<div>
+    <h4>Two way - form controls</h4>
+    First Name: <input @bind="@Employee.FirstName" /><br />
+    Last Name: <input @bind="@Employee.LastName" />
+</div>
+<div>
+    <h4>Two way - Special event</h4>
+    First Name: <input @bind-value="@Employee.FirstName" @bind-value:event="oninput" /><br />
+    Last Name: <input @bind-value="@Employee.LastName" @bind-value:event="oninput" />
+</div>

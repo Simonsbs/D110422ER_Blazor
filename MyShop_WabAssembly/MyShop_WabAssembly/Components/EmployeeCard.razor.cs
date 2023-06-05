@@ -14,23 +14,14 @@ namespace MyShop.UI.WebAssembly.Components {
         public NavigationManager NavigationManager { get; set; }
 
         public Employee Employee { get; set; }
-
-        protected override void OnInitialized() {
-            base.OnInitialized();
-        }
-
         protected override void OnParametersSet() {
             Employee = InputEmployee;
             base.OnParametersSet();
         }
 
-        protected override void OnAfterRender(bool firstRender) {
-            base.OnAfterRender(firstRender);
-        }
+        /*public void CalledPopup(MouseEventArgs e, int id) {
 
-        public void CalledPopup(MouseEventArgs e, int id) {
-
-        }
+        }*/
 
         /*public void CalledFromKeyboard(KeyboardEventArgs e) {
 
