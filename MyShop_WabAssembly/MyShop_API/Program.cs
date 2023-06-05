@@ -23,18 +23,36 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("Open", builder => builder.
+                                            AllowAnyOrigin().
+                                            AllowAnyHeader().
+                                            AllowAnyMethod());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseWebAssemblyDebugging();
 }
+app.UseBlazorFrameworkFiles();
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
+app.UseRouting();
+
 app.UseAuthorization();
 
+app.UseCors("Open");
+
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
