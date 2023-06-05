@@ -13,11 +13,14 @@ namespace MyShop.UI.WebAssembly.Components {
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        public Employee Employee { get; set; }
+
         protected override void OnInitialized() {
             base.OnInitialized();
         }
 
         protected override void OnParametersSet() {
+            Employee = InputEmployee;
             base.OnParametersSet();
         }
 
@@ -34,11 +37,11 @@ namespace MyShop.UI.WebAssembly.Components {
         }*/
 
         private async void CallParent() {
-            await PopupClicked.InvokeAsync(InputEmployee);
+            await PopupClicked.InvokeAsync(Employee);
         }
 
         private void NavigateToEmployee() {
-            NavigationManager.NavigateTo("/employee/" + InputEmployee.ID);
+            NavigationManager.NavigateTo("/employee/" + Employee.ID);
         }
     }
 

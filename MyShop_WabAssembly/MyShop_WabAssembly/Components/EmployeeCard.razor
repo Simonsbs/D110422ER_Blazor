@@ -1,18 +1,20 @@
 ﻿<div class="col">
     <div class="card rounded-3">
         <div class="card-header">
-            <h3>@InputEmployee.FirstName @InputEmployee.LastName</h3>
+            <h3>@Employee.FirstName @Employee.LastName</h3>
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <img src="@InputEmployee.Image" class="rounded-circle img-fluid" />
+                <img src="@Employee.Image" class="rounded-circle img-fluid" />
             </div>
             @*<button class="btn btn-primary" @onclick="CalledPopup">Popup</button>*@
             @*<button class="btn btn-primary" @onclick="@(e => CalledPopup(e, InputEmployee.ID))">Popup</button>*@
             @*<button class="btn btn-primary" @onclick="@(async () => await PopupClicked.InvokeAsync(InputEmployee))">Popup</button>*@
+            
+            
             <button class="btn btn-primary" @onclick="@CallParent">Popup</button>
             
-            <a href="/employee/@InputEmployee.ID" class="btn btn-primary">View</a>
+            <a href="/employee/@Employee.ID" class="btn btn-primary">View</a>
             <button class="btn btn-primary" @onclick="@NavigateToEmployee">View 2</button>
         </div>
     </div>

@@ -29,8 +29,10 @@ namespace MyShop.UI.WebAssembly.Services {
             return result;
         }
 
-        public Task<Employee> GetEmployeeById(int id) {
-            throw new NotImplementedException();
+        public async Task<Employee> GetEmployeeById(int id) {
+            var stream = await _httpClient.GetStreamAsync($"api/employee/{id}");
+            var result = await JsonSerializer.DeserializeAsync<Employee>(stream, _serializerOptions);
+            return result;
         }
 
         public Task UpdateEmployee(Employee employee) {
