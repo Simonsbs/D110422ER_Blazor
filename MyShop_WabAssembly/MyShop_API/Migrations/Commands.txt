@@ -1,0 +1,7 @@
+﻿*** MAKE SURE YOU ARE IN THE PROJECT FOLDER IN THE TERMINAL !!!
+
+-- Create a new migration file with the name [NAME]
+dotnet ef migrations add [NAME]
+
+-- Update the DB with the new migfration files (if needed)
+dotnet ef database update
