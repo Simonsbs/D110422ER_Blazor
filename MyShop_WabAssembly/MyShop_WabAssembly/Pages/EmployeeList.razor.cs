@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MyShop.Shared;
+using MyShop.UI.WebAssembly.Services;
 using System.Net.Http.Json;
 
 namespace MyShop.UI.WebAssembly.Pages {
     public partial class EmployeeList {
+        //[Inject]
+        //public HttpClient HttpClient { get; set; }
+
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        public IEmployeeService EmployeeService { get; set; }
 
         private Employee _selectedEmployee;
 
@@ -17,9 +21,16 @@ namespace MyShop.UI.WebAssembly.Pages {
             Employees = MockData.Employees;
         }*/
 
+        /*
         protected async override Task OnInitializedAsync() {
             var data = await HttpClient.GetFromJsonAsync<List<Employee>>("https://localhost:7085/api/employee");
             Employees = data;
+        }
+        */
+
+        protected async override Task OnInitializedAsync() {
+            var data = await EmployeeService.GetAllEmployees();
+            Employees = data.ToList();
         }
 
         public void EmployeePopupRequested(Employee selectedEmployee) {
