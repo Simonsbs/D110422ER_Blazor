@@ -3,11 +3,15 @@
 
 <ShortMail></ShortMail>
 
-<EmployeePopup Employee="_selectedEmployee"></EmployeePopup>
-<div class="row">
-    @foreach (var employee in Employees) {
-        <div class="col-12">
-            <EmployeeCard InputEmployee="employee" PopupClicked="EmployeePopupRequested"></EmployeeCard>
-        </div>
-    }
-</div>
+@if (Employees == null) {
+    <h3>Loading...</h3>
+} else {
+    <EmployeePopup Employee="_selectedEmployee"></EmployeePopup>
+    <div class="row">
+        @foreach (var employee in Employees) {
+            <div class="col-12">
+                <EmployeeCard InputEmployee="employee" PopupClicked="EmployeePopupRequested"></EmployeeCard>
+            </div>
+        }
+    </div>
+}
