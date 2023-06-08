@@ -3,34 +3,44 @@
 
 <h3>Employee Edit</h3>
 
-<div class="container">
-    <EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+@if (IsSaved) {
+    <div class="alert @AlertType">@DisplayMessage</div>
+    <button type="button" class="btn btn-warning" @onclick="@NavigateToList">Back to list</button>
+} else {
+    <div class="container">
+        <EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div class="row mb-3">
-            <label for="tbLastName">Last name:</label>
-            <div class="col-md-8">
-                <InputText id="tbLastName" @bind-Value="@Employee.LastName" placeholder="Enter last name" class="form-control col-md-8"></InputText>
+            @if (!string.IsNullOrEmpty(DisplayMessage)) {
+                <div class="alert @AlertType">@DisplayMessage</div>
+            }
+
+            <div class="row mb-3">
+                <label for="tbLastName">Last name:</label>
+                <div class="col-md-8">
+                    <InputText id="tbLastName" @bind-Value="@Employee.LastName" placeholder="Enter last name" class="form-control col-md-8"></InputText>
+                </div>
+                <ValidationMessage For="@(() => Employee.LastName)" />
             </div>
-            <ValidationMessage For="@(() => Employee.LastName)" />
-        </div>
-        <div class="row mb-3">
-            <label for="tbFirstName">First name:</label>
-            <div class="col-md-8">
-                <InputText id="tbFirstName" @bind-Value="@Employee.FirstName" placeholder="Enter first name" class="form-control col-md-8"></InputText>
+            <div class="row mb-3">
+                <label for="tbFirstName">First name:</label>
+                <div class="col-md-8">
+                    <InputText id="tbFirstName" @bind-Value="@Employee.FirstName" placeholder="Enter first name" class="form-control col-md-8"></InputText>
+                </div>
+                <ValidationMessage For="@(() => Employee.FirstName)" />
             </div>
-            <ValidationMessage For="@(() => Employee.FirstName)" />
-        </div>
-        <div class="row mb-3">
-            <label for="tbImage">Image:</label>
-            <div class="col-md-8">
-                <InputText id="tbImage" @bind-Value="@Employee.Image" placeholder="Enter image URL" class="form-control col-md-8"></InputText>
+            <div class="row mb-3">
+                <label for="tbImage">Image:</label>
+                <div class="col-md-8">
+                    <InputText id="tbImage" @bind-Value="@Employee.Image" placeholder="Enter image URL" class="form-control col-md-8"></InputText>
+                </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        @if (ID.HasValue) {
-            <button type="button" class="btn btn-primary" @onclick="@HandleOnDelete">Delete</button>
-        }
-    </EditForm>
-</div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            @if (ID.HasValue) {
+                <button type="button" class="btn btn-primary" @onclick="@HandleOnDelete">Delete</button>
+            }
+            <button type="button" class="btn btn-warning" @onclick="@NavigateToList">Cancel</button>
+        </EditForm>
+    </div>
+}
