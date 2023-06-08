@@ -5,17 +5,22 @@
 
 <div class="container">
     <EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
         <div class="row mb-3">
             <label for="tbLastName">Last name:</label>
             <div class="col-md-8">
                 <InputText id="tbLastName" @bind-Value="@Employee.LastName" placeholder="Enter last name" class="form-control col-md-8"></InputText>
             </div>
+            <ValidationMessage For="@(() => Employee.LastName)" />
         </div>
         <div class="row mb-3">
             <label for="tbFirstName">First name:</label>
             <div class="col-md-8">
                 <InputText id="tbFirstName" @bind-Value="@Employee.FirstName" placeholder="Enter first name" class="form-control col-md-8"></InputText>
             </div>
+            <ValidationMessage For="@(() => Employee.FirstName)" />
         </div>
         <div class="row mb-3">
             <label for="tbImage">Image:</label>
@@ -24,5 +29,8 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
+        @if (ID.HasValue) {
+            <button type="button" class="btn btn-primary" @onclick="@HandleOnDelete">Delete</button>
+        }
     </EditForm>
 </div>

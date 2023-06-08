@@ -10,6 +10,9 @@ namespace MyShop.UI.WebAssembly.Pages {
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         public Employee Employee { get; set; } = new Employee();
 
         protected async override Task OnInitializedAsync() {
@@ -32,6 +35,15 @@ namespace MyShop.UI.WebAssembly.Pages {
 
         public void HandleInvalidSubmit() {
 
+        }
+
+        public async void HandleOnDelete() {
+            if (!ID.HasValue) {
+                return;
+            }
+            await EmployeeService.DeleteEmployee(ID.Value);
+
+            NavigationManager.NavigateTo("/employees");
         }
     }
 }
