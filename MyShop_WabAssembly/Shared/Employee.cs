@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyShop.Shared {
     public class Employee {
@@ -15,5 +16,8 @@ namespace MyShop.Shared {
         public string LastName { get; set; }
 
         public string Image { get; set; }
+
+        [NotMapped]
+        public byte[] ImageData { get; set; }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using MyShop.Shared;
 using MyShop.UI.WebAssembly.Services;
 
 namespace MyShop.UI.WebAssembly.Pages {
     public partial class EmployeeEdit {
+        IBrowserFile selectedFile;
+
         [Parameter]
         public int? ID { get; set; }
 
@@ -24,7 +27,7 @@ namespace MyShop.UI.WebAssembly.Pages {
         }
 
         protected async override Task OnInitializedAsync() {
-            if (ID.HasValue) { 
+            if (ID.HasValue) {
                 Employee = await EmployeeService.GetEmployeeById(ID.Value);
             } else {
                 Employee = new Employee();
@@ -50,6 +53,14 @@ namespace MyShop.UI.WebAssembly.Pages {
             } else {
                 // NEW / INSERT
 
+                MemoryStream ms = new MemoryStream();
+                using (Stream stream = selectedFile.OpenReadStream()) {
+                    await stream.CopyToAsync(ms);
+                }
+                
+                Employee.ImageData = ms.ToArray();
+                Employee.Image = selectedFile.Name;
+
                 var employee = await EmployeeService.AddEmployee(Employee);
 
                 if (employee == null) {
@@ -57,7 +68,7 @@ namespace MyShop.UI.WebAssembly.Pages {
                     SetMsg("There was an issue saving the employee", false);
                 } else {
                     IsSaved = true;
-                    SetMsg("The employee was added");                    
+                    SetMsg("The employee was added");
                 }
             }
         }
@@ -78,6 +89,10 @@ namespace MyShop.UI.WebAssembly.Pages {
 
         public void NavigateToList() {
             NavigationManager.NavigateTo("/employees");
+        }
+
+        public void HandleFileChange(InputFileChangeEventArgs e) {
+            selectedFile = e.File;
         }
     }
 }

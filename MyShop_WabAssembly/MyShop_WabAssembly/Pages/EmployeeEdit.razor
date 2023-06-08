@@ -30,12 +30,24 @@
                 </div>
                 <ValidationMessage For="@(() => Employee.FirstName)" />
             </div>
-            <div class="row mb-3">
+            @*<div class="row mb-3">
                 <label for="tbImage">Image:</label>
                 <div class="col-md-8">
                     <InputText id="tbImage" @bind-Value="@Employee.Image" placeholder="Enter image URL" class="form-control col-md-8"></InputText>
                 </div>
-            </div>
+            </div>*@
+            @if (ID.HasValue) {
+                <div class="row mb-3">
+                    <img src="@Employee.Image" class="rounded-circle img-fluid" width="300" />
+                </div>
+            } else {
+                <div class="row mb-3">
+                    <label for="tbImage">Image File:</label>
+                    <div class="col-md-8">
+                        <InputFile id="fileImage" OnChange="HandleFileChange" class="form-control col-md-8"></InputFile>
+                    </div>
+                </div>
+            }
             <button type="submit" class="btn btn-primary">Save</button>
             @if (ID.HasValue) {
                 <button type="button" class="btn btn-primary" @onclick="@HandleOnDelete">Delete</button>

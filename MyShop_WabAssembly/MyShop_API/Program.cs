@@ -14,6 +14,8 @@ builder.Services.AddDbContext<MyShopContext>(o => {
     o.UseSqlServer(builder.Configuration.GetConnectionString("MainDB"));
 });
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 // Add services to the container.

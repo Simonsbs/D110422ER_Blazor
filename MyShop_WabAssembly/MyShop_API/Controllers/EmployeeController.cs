@@ -8,6 +8,7 @@ using MyShopAPI.Contexts;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.IO;
 
 
 namespace MyShop.API.Controllers {
@@ -16,10 +17,18 @@ namespace MyShop.API.Controllers {
     public class EmployeeController : ControllerBase {
         private readonly ILogger<EmployeeController> _logger;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IWebHostEnvironment _hostEnviroment;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public EmployeeController(ILogger<EmployeeController> logger, IEmployeeRepository employeeRepository) {
+        public EmployeeController(ILogger<EmployeeController> logger, 
+                                    IEmployeeRepository employeeRepository,
+                                    IWebHostEnvironment hostEnviroment,
+                                    IHttpContextAccessor httpContext) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _employeeRepository = employeeRepository ?? throw new ArgumentNullException(nameof(employeeRepository));
+            
+            _hostEnviroment = hostEnviroment ?? throw new ArgumentNullException(nameof(hostEnviroment));
+            _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
         }
 
         [HttpGet]
@@ -46,6 +55,19 @@ namespace MyShop.API.Controllers {
                 return BadRequest(ModelState);
             }
 
+            
+            
+            string urlBase = _httpContext.HttpContext.Request.Host.Value;
+            string path = Path.Combine(_hostEnviroment.WebRootPath, "uploads", employee.Image);
+
+            using (var fileStream = System.IO.File.Create(path)) {
+                fileStream.Write(employee.ImageData, 0, employee.ImageData.Length);
+            }
+
+            employee.Image = $"https://{urlBase}/uploads/{employee.Image}";
+
+            
+            
             var createdEmployee = _employeeRepository.AddEmployee(employee);
 
             return Created("employee", createdEmployee);
@@ -64,6 +86,8 @@ namespace MyShop.API.Controllers {
             if (!ModelState.IsValid) { 
                 return BadRequest(ModelState);
             }
+
+
 
             var employeeToUpdate = _employeeRepository.GetEmployeeById(employee.ID);
 
