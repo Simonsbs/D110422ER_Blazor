@@ -1,23 +1,27 @@
 ﻿@page "/employee/edit/"
+@page "/employee/edit/{id:int}"
+
 <h3>Employee Edit</h3>
 
-<div>
-    <h4>One Way - No binding</h4>
-    First Name: <label>@Employee.FirstName</label><br />
-    Last Name: <label>@Employee.LastName</label>
-</div>
-<div>
-    <h4>One way - form controls</h4>
-    First Name: <input value="@Employee.FirstName" /><br />
-    Last Name: <input value="@Employee.LastName" />
-</div>
-<div>
-    <h4>Two way - form controls</h4>
-    First Name: <input @bind="@Employee.FirstName" /><br />
-    Last Name: <input @bind="@Employee.LastName" />
-</div>
-<div>
-    <h4>Two way - Special event</h4>
-    First Name: <input @bind-value="@Employee.FirstName" @bind-value:event="oninput" /><br />
-    Last Name: <input @bind-value="@Employee.LastName" @bind-value:event="oninput" />
+<div class="container">
+    <EditForm Model="@Employee">
+        <div class="row mb-3">
+            <label for="tbLastName">Last name:</label>
+            <div class="col-md-8">
+                <InputText id="tbLastName" @bind-Value="@Employee.LastName" placeholder="Enter last name" class="form-control col-md-8"></InputText>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="tbFirstName">First name:</label>
+            <div class="col-md-8">
+                <InputText id="tbFirstName" @bind-Value="@Employee.FirstName" placeholder="Enter first name" class="form-control col-md-8"></InputText>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="tbImage">Image:</label>
+            <div class="col-md-8">
+                <InputText id="tbImage" @bind-Value="@Employee.Image" placeholder="Enter image URL" class="form-control col-md-8"></InputText>
+            </div>
+        </div>
+    </EditForm>
 </div>
