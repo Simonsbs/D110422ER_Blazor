@@ -1,4 +1,5 @@
 ﻿using MyShop.Shared;
+using System.Text;
 using System.Text.Json;
 
 namespace MyShop.UI.WebAssembly.Services {
@@ -15,12 +16,28 @@ namespace MyShop.UI.WebAssembly.Services {
             };
         }
 
-        public Task<Employee> AddEmployee(Employee employee) {
-            throw new NotImplementedException();
+        public async Task UpdateEmployee(Employee employee) {
+            var rawJson = JsonSerializer.Serialize(employee);
+            var content = new StringContent(rawJson, Encoding.UTF8, "application/json");
+            await _httpClient.PutAsync("api/employee", content);
         }
 
-        public Task DeleteEmployee(int id) {
-            throw new NotImplementedException();
+        public async Task<Employee> AddEmployee(Employee employee) {
+            var rawJson = JsonSerializer.Serialize(employee);
+            var content = new StringContent(rawJson, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/employee", content);
+
+            if (response.IsSuccessStatusCode) {
+                var responseStream = await response.Content.ReadAsStreamAsync();
+                var newEmployee = JsonSerializer.Deserialize<Employee>(responseStream);
+                return newEmployee;
+            }
+
+            return null;
+        }
+
+        public async Task DeleteEmployee(int id) {
+            await _httpClient.DeleteAsync($"api/employee/{id}");
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployees() {
@@ -35,8 +52,6 @@ namespace MyShop.UI.WebAssembly.Services {
             return result;
         }
 
-        public Task UpdateEmployee(Employee employee) {
-            throw new NotImplementedException();
-        }
+
     }
 }

@@ -17,5 +17,21 @@ namespace MyShop.UI.WebAssembly.Pages {
                 Employee = await EmployeeService.GetEmployeeById(ID.Value);
             }
         }
+
+        public async Task HandleValidSubmit() {
+            if (ID.HasValue && ID.Value > 0) {
+                // EDIT / UPDATE
+
+                await EmployeeService.UpdateEmployee(Employee);
+            } else {
+                // NEW / INSERT
+
+                var employee = await EmployeeService.AddEmployee(Employee);
+            }
+        }
+
+        public void HandleInvalidSubmit() {
+
+        }
     }
 }
