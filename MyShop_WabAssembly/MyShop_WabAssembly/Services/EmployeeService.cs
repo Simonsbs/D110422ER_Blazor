@@ -29,7 +29,9 @@ namespace MyShop.UI.WebAssembly.Services {
 
             if (response.IsSuccessStatusCode) {
                 var responseStream = await response.Content.ReadAsStreamAsync();
-                var newEmployee = JsonSerializer.Deserialize<Employee>(responseStream);
+                var newEmployee = JsonSerializer.Deserialize<Employee>(responseStream, new JsonSerializerOptions {
+                    PropertyNameCaseInsensitive = true
+                });
                 return newEmployee;
             }
 
